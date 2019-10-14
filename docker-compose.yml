@@ -1,9 +1,17 @@
 version: "3.7"
 
 services:
+  poc:
+    hostname: poc
+    container_name: poc
+    build:
+      context: ./poc_srv
+      dockerfile: Dockerfile
+    tty: true
+
   nginx001:
-    hostname: poc-nginx-001
-    container_name: poc-nginx-001
+    hostname: poc.exmaple.com
+    container_name: poc.exmaple.com
     build:
       context: ./rev_proxy
       dockerfile: Dockerfile
@@ -11,10 +19,17 @@ services:
       - type: bind
         source: ./rev_proxy/config/nginx.conf
         target: /etc/nginx/nginx.conf
+      - type: bind
+        source: ./rev_proxy/config/default.conf
+        target: /etc/nginx/conf.d/default.conf
     tty: true
+    ports:
+      - 8080:80
+      - 8081:443
+
   webapp001:
-    hostname: poc-webapp-001
-    container_name: poc-webapp-001
+    hostname: webapp-001
+    container_name: webapp-001
     domainname: poc.example.com
     user: root
     build:
@@ -28,3 +43,5 @@ services:
       - 8.8.8.8
       - 9.9.9.9
     tty: true
+    environment:
+      TZ: "Asia/Tokyo"
