@@ -13,6 +13,9 @@ docker-compose network for nginx verification.
 # Build and Start
 $ make build
 
+# Restart
+$ make restart
+
 # Nginx reload
 $ make reload
 ```
