@@ -1,10 +1,13 @@
-FROM centos:centos7
-WORKDIR /etc/
-COPY ./nginx.repo /etc/yum.repos.d/nginx.repo
-RUN yum update -y \
-	&& yum install -y \
+FROM nginx:1.17.4-alpine
+WORKDIR /root
+USER root:root
+
+RUN apk update \
+	&& apk add --no-cache \
+	bash \
 	vim \
-	nginx \
-	curl \
-	lsof \
-	bash-completion
+	curl
+
+COPY --chown=root:root config/bashrc /root/.bashrc
+
+CMD ["bash"]

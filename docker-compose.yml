@@ -1,6 +1,17 @@
 version: "3.7"
 
 services:
+  nginx001:
+    hostname: poc-nginx-001
+    container_name: poc-nginx-001
+    build:
+      context: ./rev_proxy
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./rev_proxy/config/nginx.conf
+        target: /etc/nginx/nginx.conf
+    tty: true
   webapp001:
     hostname: poc-webapp-001
     container_name: poc-webapp-001
@@ -17,9 +28,3 @@ services:
       - 8.8.8.8
       - 9.9.9.9
     tty: true
-  nginx001:
-    hostname: poc-nginx-001
-    container_name: poc-nginx-001
-    build:
-      context: ./rev_proxy
-      dockerfile: Dockerfile
