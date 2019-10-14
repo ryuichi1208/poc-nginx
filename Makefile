@@ -16,5 +16,9 @@ poc:
 nginx:
 	${DOCKER_COMPOSE} exec nginx001 bash
 
+reload:
+	${DOCKER_COMPOSE} exec nginx001 nginx -t
+	${DOCKER_COMPOSE} exec nginx001 nginx -s reload
+
 web01:
 	${DOCKER_COMPOSE} exec webapp001 bash

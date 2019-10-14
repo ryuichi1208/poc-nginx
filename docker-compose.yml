@@ -45,3 +45,21 @@ services:
     tty: true
     environment:
       TZ: "Asia/Tokyo"
+  webapp002:
+    hostname: webapp-002
+    container_name: webapp-002
+    domainname: poc.example.com
+    user: root
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./webapp/main.py
+        target: /var/www/main.py
+    dns:
+      - 8.8.8.8
+      - 9.9.9.9
+    tty: true
+    environment:
+      TZ: "Asia/Tokyo"
