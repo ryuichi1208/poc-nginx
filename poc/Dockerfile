@@ -6,7 +6,8 @@ RUN apk update \
 	&& apk add --no-cache \
 	bash \
 	vim \
-	curl
+	curl \
+	jq
 
 COPY --chown=root:root config/bashrc /root/.bashrc
 CMD ["bash"]

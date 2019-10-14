@@ -5,31 +5,37 @@ services:
     hostname: poc
     container_name: poc
     build:
-      context: ./poc_srv
+      context: ./poc
       dockerfile: Dockerfile
     tty: true
+    networks:
+      default:
+        ipv4_address: 192.168.2.50
 
   nginx001:
     hostname: poc.exmaple.com
     container_name: poc.exmaple.com
     build:
-      context: ./rev_proxy
+      context: ./proxy
       dockerfile: Dockerfile
     volumes:
       - type: bind
-        source: ./rev_proxy/config/nginx.conf
+        source: ./proxy/config/nginx.conf
         target: /etc/nginx/nginx.conf
       - type: bind
-        source: ./rev_proxy/config/default.conf
+        source: ./proxy/config/default.conf
         target: /etc/nginx/conf.d/default.conf
     tty: true
     ports:
       - 8080:80
       - 8081:443
+    networks:
+      default:
+        ipv4_address: 192.168.2.200
 
   webapp001:
-    hostname: webapp-001
-    container_name: webapp-001
+    hostname: webapp001
+    container_name: webapp001
     domainname: poc.example.com
     user: root
     build:
@@ -45,9 +51,12 @@ services:
     tty: true
     environment:
       TZ: "Asia/Tokyo"
+    networks:
+      default:
+        ipv4_address: 192.168.2.100
   webapp002:
-    hostname: webapp-002
-    container_name: webapp-002
+    hostname: webapp002
+    container_name: webapp002
     domainname: poc.example.com
     user: root
     build:
@@ -63,3 +72,12 @@ services:
     tty: true
     environment:
       TZ: "Asia/Tokyo"
+    networks:
+      default:
+        ipv4_address: 192.168.2.101
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 192.168.2.0/24

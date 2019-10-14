@@ -20,10 +20,28 @@ def index():
             "headers" : dict(request.headers),
             "host": {
                 "name" : os.uname()[1],
-                "ip" : socket.gethostbyname(socket.gethostname())
+                "ip" : socket.gethostbyname(socket.gethostname()),
+                "ppid" : os.getppid(),
+                "pid" : os.getpid()
             }
         }
     )
+
+@app.route('/status/<int:status_code>', methods=['GET'])
+def return_http_status(status_code):
+    status_list = {
+        200: "OK",
+        400: "Bad Request",
+        404: "Not Found",
+        500: "Internal Server Error"
+    }
+
+    try:
+        status_list[status_code]
+    except KeyError:
+        return jsonify({"status" : status_list[404]}), 404
+
+    return jsonify({"status" : status_list[status_code]}), status_code
 
 if __name__ == '__main__':
     CRUD_JSON_AS_ASCII = os.getenv('JSON_AS_ASCII') or False
