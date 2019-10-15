@@ -2,8 +2,10 @@ FROM python:3.7
 
 RUN mkdir /var/www
 WORKDIR /var/www
-COPY requirements.txt ./
-COPY uwsgi.ini ./
+
+COPY --chown=root:root requirements.txt .
+COPY --chown=root:root uwsgi.ini .
+
 RUN pip install -U pip
 RUN pip install --no-cache-dir -r requirements.txt
 

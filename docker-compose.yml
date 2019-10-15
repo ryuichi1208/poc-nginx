@@ -11,6 +11,10 @@ services:
     networks:
       default:
         ipv4_address: 192.168.2.50
+    volumes:
+      - type: bind
+        source: ./poc/request_test.sh
+        target: /request_test.sh
 
   nginx001:
     hostname: poc.exmaple.com
@@ -45,6 +49,9 @@ services:
       - type: bind
         source: ./webapp/main.py
         target: /var/www/main.py
+      - type: bind
+        source: ./webapp/templates
+        target: /var/www/templates
     dns:
       - 8.8.8.8
       - 9.9.9.9
@@ -66,6 +73,9 @@ services:
       - type: bind
         source: ./webapp/main.py
         target: /var/www/main.py
+      - type: bind
+        source: ./webapp/templates
+        target: /var/www/templates
     dns:
       - 8.8.8.8
       - 9.9.9.9
