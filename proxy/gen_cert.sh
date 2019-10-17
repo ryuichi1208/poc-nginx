@@ -5,9 +5,9 @@ openssl genrsa 2048 > server.key
 openssl req -new -key server.key <<EOF > server.csr
 JP
 Tokyo
-Neet Town
-Neet Company
-Neet Section
+Test
+Test
+Test
 
 
 
