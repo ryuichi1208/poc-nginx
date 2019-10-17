@@ -25,8 +25,8 @@ restart: list down up
 pocs:
 	date ; ${DOCKER_COMPOSE} exec poc bash
 
-.PHONY: nginx
-nginx:
+.PHONY: proxy
+proxy:
 	date ; ${DOCKER_COMPOSE} exec nginx001 bash
 
 .PHONY: reload

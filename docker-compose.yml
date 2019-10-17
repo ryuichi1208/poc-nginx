@@ -17,8 +17,8 @@ services:
         target: /request_test.sh
 
   nginx001:
-    hostname: poc.exmaple.com
-    container_name: poc.exmaple.com
+    hostname: poc-proxy.exmaple.com
+    container_name: poc-proxy.exmaple.com
     build:
       context: ./proxy
       dockerfile: Dockerfile
