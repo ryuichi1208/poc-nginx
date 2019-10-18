@@ -109,6 +109,21 @@ services:
     networks:
       default:
         ipv4_address: 192.168.2.102
+  webapp004:
+    hostname: webapp004
+    container_name: webapp004
+    domainname: poc.example.com
+    user: root
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile-socket
+    volumes:
+      - type: bind
+        source: ./webapp/main.py
+        target: /var/www/main.py
+      - type: bind
+        source: ./webapp/templates
+        target: /var/www/templates
 
 networks:
   default:
