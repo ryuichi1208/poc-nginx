@@ -3,7 +3,7 @@ docker-compose network for nginx verification.
 
 ## Image
 
-![image](https://github.com/ryuichi1208/poc-nginx/doc/images/image.png)
+![image](https://github.com/ryuichi1208/poc-nginx/blob/master/doc/images/image.png)
 
 ## Constitution
 
