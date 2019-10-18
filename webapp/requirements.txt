@@ -5,4 +5,6 @@ itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.1
 Werkzeug==0.14.1
-uwsgi
+uWSGI==2.0.18
+redis==3.3.11
+numpy==1.17.3

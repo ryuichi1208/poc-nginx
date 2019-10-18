@@ -38,12 +38,12 @@ services:
         ipv4_address: 192.168.2.200
 
   redis:
+    hostname: redis001
+    container_name: redis001
     image: redis:latest
     ports:
       - "6379:6379"
     command: redis-server --appendonly yes
-    volumes:
-       - ./data/redis:/data
 
   webapp001:
     hostname: webapp001
