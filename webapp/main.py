@@ -15,7 +15,7 @@ from multiprocessing import Pool, Process, cpu_count
 app = Flask(__name__)
 
 
-@app.route("/_info", methods=["GET"])
+@app.route("/", methods=["GET"])
 def index():
     return jsonify(
         {

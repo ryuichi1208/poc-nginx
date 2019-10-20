@@ -29,10 +29,13 @@ services:
       - type: bind
         source: ./nginx/config/ssl_offload.conf
         target: /etc/nginx/conf.d/default.conf
+      - type: bind
+        source: ./nginx/html
+        target: /usr/share/nginx/html
     tty: true
     ports:
-      - 8080:80
-      - 8081:443
+      - 8080:80/tcp
+      - 8081:443/tcp
     networks:
       default:
         ipv4_address: 192.168.2.200
