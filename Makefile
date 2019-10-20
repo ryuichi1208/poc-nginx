@@ -23,6 +23,7 @@ restart: list down up
 
 .PHONY: poc
 poc:
+	echo "curl --tlsv1.2 -vskL poc-proxy.example.com/uri/_info | jq ."
 	date ; ${DOCKER_COMPOSE} exec poc bash
 
 .PHONY: offload
@@ -37,3 +38,7 @@ reload:
 .PHONY: web01
 web01:
 	date ; ${DOCKER_COMPOSE} exec webapp001 bash
+
+.PHONY: test
+test:
+	date ; ${DOCKER_COMPOSE} exec poc curl --tlsv1.2 -vskL poc-proxy.example.com/uri/_info
