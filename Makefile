@@ -32,8 +32,8 @@ offload:
 
 .PHONY: reload
 reload:
-	date ; ${DOCKER_COMPOSE} exec nginx001 nginx -t
-	date ; ${DOCKER_COMPOSE} exec nginx001 nginx -s reload
+	date ; ${DOCKER_COMPOSE} exec offload nginx -t
+	date ; ${DOCKER_COMPOSE} exec offload nginx -s reload
 
 .PHONY: web01
 web01:
