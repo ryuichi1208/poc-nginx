@@ -72,7 +72,7 @@ server {
 	# 転送先のupstremを指定
         proxy_pass http://backend/;
 
-	limit_except GET POST PUT HEAD {
+	limit_except GET POST PUT HEAD OPTIONS {
 	    allow all;
 	}
 
