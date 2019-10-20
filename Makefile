@@ -21,13 +21,13 @@ build: list
 .PHONY: restart
 restart: list down up
 
-.PHONY: pocs
-pocs:
+.PHONY: poc
+poc:
 	date ; ${DOCKER_COMPOSE} exec poc bash
 
-.PHONY: proxy
-proxy:
-	date ; ${DOCKER_COMPOSE} exec nginx001 bash
+.PHONY: offload
+offload:
+	date ; ${DOCKER_COMPOSE} exec offload bash
 
 .PHONY: reload
 reload:
