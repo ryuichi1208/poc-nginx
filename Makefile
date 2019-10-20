@@ -1,10 +1,8 @@
 DOCKER_COMPOSE := $(shell which docker-compose)
 
-pass:
-	:
-
 .PHONY: list
 list:
+	date ; ${DOCKER_COMPOSE} -h
 	date ; ${DOCKER_COMPOSE} ps
 
 up:
@@ -13,13 +11,13 @@ up:
 down:
 	date ; ${DOCKER_COMPOSE} down
 
-.PHONY: build
+.PHONY: restart
+restart: list down up
+
+.PHONY: build test
 build: list
 	date ; ${DOCKER_COMPOSE} down --rmi all
 	date ; ${DOCKER_COMPOSE} up -d
-
-.PHONY: restart
-restart: list down up
 
 .PHONY: poc
 poc:
