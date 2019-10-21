@@ -96,6 +96,14 @@ services:
     networks:
       default:
         ipv4_address: 192.168.2.101
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "128M"
+        reservations:
+          cpus: "0.05"
+          memory: "64MB"
   webapp003:
     hostname: webapp003
     container_name: webapp003
@@ -135,6 +143,8 @@ services:
       - type: bind
         source: ./webapp/templates
         target: /var/www/templates
+    # devices:
+    #   - "/dev/ttyUSB0:/dev/ttyUSB0"
 
 networks:
   default:

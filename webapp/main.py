@@ -8,6 +8,7 @@ import socket
 import sys
 import time
 import functools
+import itertools
 
 from flask import Flask, request, make_response, jsonify, render_template
 from multiprocessing import Pool, Process, cpu_count
@@ -60,6 +61,12 @@ def sleep():
 @app.route("/test/static/<string:filename>", methods=["GET"])
 def return_static(filename):
     return render_template(filename + ".html", message=filename)
+
+
+@app.route("/test/stress")
+def do_stress_test():
+    L = list(itertools.permutations([i**128 for i in range(128)]))
+    return "200"
 
 
 if __name__ == "__main__":

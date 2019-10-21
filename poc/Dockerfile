@@ -2,12 +2,21 @@ FROM alpine:3.10.2
 WORKDIR /root
 USER root:root
 
-RUN apk update \
+RUN set -ex \
+        && apk update \
+	&& apk upgrade \
 	&& apk add --no-cache \
+	apache2-utils \
 	bash \
-	vim \
 	curl \
-	jq
+	ethtool \
+	jq \
+	ltrace \
+	ngrep \
+	socat \
+	strace \
+	tcpdump \
+	vim
 
 COPY --chown=root:root config/bashrc /root/.bashrc
 CMD ["bash"]

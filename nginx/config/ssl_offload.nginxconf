@@ -86,7 +86,7 @@ server {
 	# コネクション接続までのタイムアウト
 	proxy_connect_timeout 60s;
 	# バックエンドサーバからの受信完了までの時間
-	proxy_read_timeout 5s;
+	proxy_read_timeout 100s;
 	# バックエンドサーバへのデータ送信完了までの時間
 	proxy_send_timeout 60s;
 	# 失敗したリクエストを他のサーバに再送する条件(offにすることも可能)
