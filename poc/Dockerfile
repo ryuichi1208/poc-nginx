@@ -18,5 +18,6 @@ RUN set -ex \
 	tcpdump \
 	vim
 
+# RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
 COPY --chown=root:root config/bashrc /root/.bashrc
 CMD ["bash"]
