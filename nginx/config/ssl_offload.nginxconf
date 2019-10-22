@@ -1,7 +1,9 @@
+########### hash #############
 # map変数のハッシュテーブルのbucketサイズを設定
 map_hash_bucket_size 128;
 # map変数のハッシュテーブルの最大size
 map_hash_max_size 2048;
+##############################
 
 # Syntax:	map string $variable { ... }
 # Context:	http
@@ -10,6 +12,10 @@ map $http_user_agent $device {
     =curl/7.66.0 Perfect_Match;
     ~curl $http_user_agent;
 }
+
+# Dos攻撃対策 DDosには非対応。。
+# limit_req_zone [キー名] [zone名] [リクエスト数]
+limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
 
 upstream backend {
     # 接続先選定のアルゴリズム
@@ -22,6 +28,9 @@ upstream backend {
 
     # 他サーバが死んだらbackupへリクエスト
     server webapp003:5000 backup;
+
+    # コールドスタンバイ、downを指定していう限りはリクエストは飛ばない
+    server webapp004 down;
 }
 
 server {
@@ -32,6 +41,11 @@ server {
 
 server {
     listen       443 ssl;
+
+    # メンテナンスモード用のフラグ
+    set $maintenance 0;
+    # Dos攻撃対策(5リクエスト/秒以上のリクエストで503を返す)
+    limit_req zone=one burst=5;
 
     # SSL証明書ファイルのパス
     ssl_certificate /etc/ssl/certs/server.crt;
@@ -72,6 +86,10 @@ server {
         # HEADはキャッシュしない(Cache-Control: no-cache)
 	if ($request_method = "HEAD") {
 	    expires -1;
+	}
+
+	if ($maintenance) {
+            return 503;
 	}
 
 	# 転送先のupstremを指定
@@ -132,7 +150,9 @@ server {
 
     error_page 404 /404.html;
 
-    error_page 500 502 503 504 /50x.html;
+    error_page 503 /503.html;
+
+    error_page 500 502 504 /50x.html;
     location = /50x.html {
         root   /usr/share/nginx/html;
     }
