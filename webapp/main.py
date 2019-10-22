@@ -9,11 +9,15 @@ import sys
 import time
 import functools
 import itertools
+import requests
+import pathlib
 
 from flask import Flask, request, make_response, jsonify, render_template
 from multiprocessing import Pool, Process, cpu_count
 
 app = Flask(__name__)
+# app.config['SECRET_KEY'] = ""
+# app.config['UPLOAD_FOLDER'] = ""
 
 
 @app.route("/", methods=["GET"])
@@ -65,8 +69,13 @@ def return_static(filename):
 
 @app.route("/test/stress")
 def do_stress_test():
-    L = list(itertools.permutations([i**128 for i in range(128)]))
+    L = list(itertools.permutations([i ** 128 for i in range(128)]))
     return "200"
+
+
+@app.errorhandler(HttpException)
+def handle_http_exception(error):
+    return error.get_response()
 
 
 if __name__ == "__main__":

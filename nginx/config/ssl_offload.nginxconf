@@ -69,6 +69,11 @@ server {
     location /uri/ {
 	root /usr/share/nginx/html;
 
+        # HEADはキャッシュしない(Cache-Control: no-cache)
+	if ($request_method = "HEAD") {
+	    expires -1;
+	}
+
 	# 転送先のupstremを指定
         proxy_pass http://backend/;
 
