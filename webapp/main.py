@@ -11,9 +11,11 @@ import functools
 import itertools
 import requests
 import pathlib
+import werkzeug
 
 from flask import Flask, request, make_response, jsonify, render_template
 from multiprocessing import Pool, Process, cpu_count
+# from werkzeug.exception import HTTPException
 
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = ""
@@ -73,9 +75,9 @@ def do_stress_test():
     return "200"
 
 
-@app.errorhandler(HttpException)
-def handle_http_exception(error):
-    return error.get_response()
+# @app.errorhandler(HttpException)
+# def handle_http_exception(error):
+#     return error.get_response()
 
 
 if __name__ == "__main__":
