@@ -17,8 +17,8 @@ services:
         target: /request_test.sh
 
   offload:
-    hostname: poc-proxy.example.com
-    container_name: poc-proxy.example.com
+    hostname: nginx.dev.com
+    container_name: nginx.dev.com
     build:
       context: ./nginx
       dockerfile: Dockerfile

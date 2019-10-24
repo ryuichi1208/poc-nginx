@@ -1,3 +1,4 @@
+DOCKER := $(shell which docker)
 DOCKER_COMPOSE := $(shell which docker-compose)
 
 .PHONY: list
@@ -18,6 +19,12 @@ restart: list down up
 build: list
 	date ; ${DOCKER_COMPOSE} down --rmi all
 	date ; ${DOCKER_COMPOSE} up -d
+	date ; ${DOCKER} container cp nginx.dev.com:/etc/ssl/certs/server.crt tmp
+	date ; ${DOCKER} container cp nginx.dev.com:/etc/ssl/certs/server_wild.crt tmp
+	date ; ${DOCKER} container cp tmp/server.crt poc:/usr/local/share/ca-certificates
+	date ; ${DOCKER} container cp tmp/server_wild.crt poc:/usr/local/share/ca-certificates
+	date ; ${DOCKER_COMPOSE} exec poc update-ca-certificates
+	rm -f tmp/server*
 
 .PHONY: poc
 poc:
