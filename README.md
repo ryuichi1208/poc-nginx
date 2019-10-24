@@ -15,8 +15,13 @@ docker-compose network for nginx verification.
 
 * Mac for Docker
 
-## 使い方
+## コンテナごとの説明
+
+* poc => httpクライアント/その他調査用コマンド実行用
+
+## 始め方
 
 ```
+# コンテナのビルド/証明書の生成
 $ make build
 ```

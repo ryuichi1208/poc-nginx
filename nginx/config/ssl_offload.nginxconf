@@ -19,6 +19,9 @@ map $http_user_agent $device {
     ~curl $http_user_agent;
 }
 
+# プロキシのキャッシュ用のパス
+proxy_cache_path /var/cache/nginx/proxy_temp/domain levels=1:2 keys_zone=cache_domain:15m max_size=100m;
+
 # Dos攻撃対策 DDosには非対応。。
 # limit_req_zone [キー名] [zone名] [リクエスト数]
 limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
