@@ -6,7 +6,8 @@ WORKDIR /var/www
 COPY --chown=root:root requirements.txt .
 COPY --chown=root:root uwsgi.ini .
 
-RUN pip install -U pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt update -y && apt upgrade -y \
+	&& pip install -U pip \
+	&& pip install --no-cache-dir -r requirements.txt
 
 CMD ["uwsgi", "--ini", "uwsgi.ini"]

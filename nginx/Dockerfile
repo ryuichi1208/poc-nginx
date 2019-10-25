@@ -8,7 +8,8 @@ RUN apk update \
 	bash \
 	vim \
 	curl \
-	openssl
+	openssl \
+	&& mkdir -p /var/cache/nginx/proxy_temp/domain
 
 COPY --chown=root:root config/bashrc /root/.bashrc
 COPY --chown=root:root gen_cert.sh /etc/ssl/certs

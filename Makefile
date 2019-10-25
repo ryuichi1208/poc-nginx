@@ -13,17 +13,12 @@ down:
 	date ; ${DOCKER_COMPOSE} down
 
 .PHONY: restart
-restart: list down up
+restart: list down up update-cert
 
 .PHONY: build test
-build: list
+build: update-cert list
 	date ; ${DOCKER_COMPOSE} down --rmi all
 	date ; ${DOCKER_COMPOSE} up -d
-	date ; ${DOCKER} container cp nginx.dev.com:/etc/ssl/certs/server.crt tmp
-	date ; ${DOCKER} container cp nginx.dev.com:/etc/ssl/certs/server_wild.crt tmp
-	date ; ${DOCKER} container cp tmp/server.crt poc:/usr/local/share/ca-certificates
-	date ; ${DOCKER} container cp tmp/server_wild.crt poc:/usr/local/share/ca-certificates
-	date ; ${DOCKER_COMPOSE} exec poc update-ca-certificates
 	rm -f tmp/server*
 
 .PHONY: poc
@@ -40,9 +35,20 @@ reload:
 	date ; ${DOCKER_COMPOSE} exec offload nginx -t
 	date ; ${DOCKER_COMPOSE} exec offload nginx -s reload
 
+.PHONY: update-cert
+update-cert:
+	date ; ${DOCKER} container cp nginx.dev.com:/etc/ssl/certs/server.crt tmp
+	date ; ${DOCKER} container cp nginx.dev.com:/etc/ssl/certs/server_wild.crt tmp
+	date ; ${DOCKER} container cp tmp/server.crt poc:/usr/local/share/ca-certificates
+	date ; ${DOCKER} container cp tmp/server_wild.crt poc:/usr/local/share/ca-certificates
+	date ; ${DOCKER_COMPOSE} exec poc update-ca-certificates
 .PHONY: web01
 web01:
 	date ; ${DOCKER_COMPOSE} exec webapp001 bash
+
+.PHONY: web02
+web02:
+	date ; ${DOCKER_COMPOSE} exec webapp002 bash
 
 .PHONY: test
 test:

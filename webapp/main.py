@@ -12,6 +12,7 @@ import itertools
 import requests
 import pathlib
 import werkzeug
+import redis
 
 from flask import Flask, request, make_response, jsonify, render_template
 from multiprocessing import Pool, Process, cpu_count
@@ -32,6 +33,7 @@ def index():
                 "ip": socket.gethostbyname(socket.gethostname()),
                 "ppid": os.getppid(),
                 "pid": os.getpid(),
+                "date": str(datetime.datetime.today())[:-7]
             },
         }
     )
@@ -73,6 +75,16 @@ def return_static(filename):
 def do_stress_test():
     L = list(itertools.permutations([i ** 128 for i in range(128)]))
     return "200"
+
+def get_redis_connnetc_pool(serv:str, port:int=6379, db:int=0):
+    pool = redis.ConnectionPool(host=serv, port=port, db=db)
+    return redis.StricRedis(connection_pool=pool)
+
+
+@app.route("/test/redis", methods=["GET", "POST"])
+def redis_cli():
+    get_redis_connnetc_pool("redis001")
+
 
 
 # @app.errorhandler(HttpException)
