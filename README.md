@@ -1,27 +1,24 @@
 # poc-nginx
 docker-compose network for nginx verification.
 
-## Image
+## 概要
 
-![image](https://github.com/ryuichi1208/poc-nginx/blob/master/doc/images/image.png)
+Nginxを使ったwebアプリケーションの設定のテストをするためのリポジトリ
 
-## 対応してる機能
+## 対応機能
 
-* SSLオフロード
-* Server Name Indication
-* http/2
+* SSLオフロード(SSLアクセラレータ)
+* Server Name Indicationテスト
+* リバースプロキシバッファやキャッシュを用いた動作確認
 
-## 必要
+## 必要ソフトウェア
 
-* Mac for Docker
-
-## コンテナごとの説明
-
-* poc => httpクライアント/その他調査用コマンド実行用
+* make
+* Docker / docker-compose
 
 ## 始め方
 
 ```
-# コンテナのビルド/証明書の生成
+# コンテナのビルドと環境セットアップ
 $ make build
 ```

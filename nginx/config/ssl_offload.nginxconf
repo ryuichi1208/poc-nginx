@@ -1,3 +1,4 @@
+client_max_body_size 1k;
 ########### hash #############
 # map変数のハッシュテーブルのbucketサイズを設定
 map_hash_bucket_size 128;
@@ -112,38 +113,53 @@ server {
 
 	# 転送先のupstremを指定
         proxy_pass http://backend/;
+
 	# プロキシ時のhttpのバージョンを指定
 	proxy_http_version 1.1;
+
 	# リバースプロキシ時にリダイレクトをするk
 	proxy_redirect off;
+
 	# バッファリングするかどうか設定
 	proxy_buffering on;
+
 	# バッファのサイズ
 	proxy_buffer_size 4k;
+
 	# proxy_buffer_sizeの次に使われるメモリ上のサイズ数
 	proxy_buffers 8 4k;
+
         # プロキシのキャッシュ
 	proxy_cache cache_domain;
+
 	# リクエストのためにキーが計算される方法を定義
 	proxy_cache_key $host$uri$is_args$args;
+
         # キャッシュを行うステータスコードとその際の有効期限を指定
 	proxy_cache_valid 200 201 300 301 302 1d;
+
 	# 下記がヘッダーにある場合はキャッシュを使用しない
 	proxy_ignore_headers X-Accel-Redirect X-Accel-Expires Cache-Control Expires Vary Set-Cookie;
+
 	# レスポンスヘッダにキャッシュヒットしたかどうかを含める
         add_header X-Nginx-Cache $upstream_cache_status;
 
 	# コネクション接続までのタイムアウト
 	proxy_connect_timeout 60s;
+
 	# バックエンドサーバからの受信完了までの時間
 	proxy_read_timeout 100s;
+
 	# バックエンドサーバへのデータ送信完了までの時間
 	proxy_send_timeout 60s;
+
 	# 失敗したリクエストを他のサーバに再送する条件(offにすることも可能)
 	proxy_next_upstream error timeout http_504;
+
 	# Nginx 側でリクエストがタイムアウトしたと判断するまでの時間
 	# この設定を入れることで上位サーバがタイムアウトした際に次のサーバへリクエストを投げない
 	proxy_next_upstream_timeout 60s;
+
 	# 条件に合致したリクエストを、最大で何台のサーバに送信するか
 	proxy_next_upstream_tries 1;
 
@@ -159,7 +175,7 @@ server {
 	proxy_set_header Method $request_method;
 	proxy_set_header Scheme $scheme;
 	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header X-Forwarded-Server $host; # プロキシサーバのホスト名
+	proxy_set_header X-Forwarded-Server $host;
 	proxy_set_header X-Ua-Mapping $device;
 	##############################
     }
@@ -197,22 +213,9 @@ server {
     location / {
         root   /usr/share/nginx/html;
         index  index.html index.htm;
-    }
-
-    location /uri/ {
-	root /usr/share/nginx/html;
-
-        # HEADはキャッシュしない(Cache-Control: no-cache)
-	if ($request_method = "HEAD") {
-	    expires -1;
-	}
-
-	if ($maintenance) {
-            return 503;
-	}
 
 	# 転送先のupstremを指定
         proxy_pass http://backend/;
 	proxy_set_header X-AA aaa;
-	}
+    }
 }

@@ -30,13 +30,12 @@ services:
       context: ./poc
       dockerfile: Dockerfile
     tty: true
-    networks:
-      default:
-        ipv4_address: 192.168.2.50
     volumes:
       - type: bind
         source: ./poc/request_test.sh
         target: /request_test.sh
+    extra_hosts:
+      - "ib.dev.com:192.168.2.100"
 
   offload:
     hostname: nginx.dev.com
@@ -60,7 +59,7 @@ services:
       - 8081:443/tcp
     networks:
       default:
-        ipv4_address: 192.168.2.200
+        ipv4_address: 192.168.2.100
 
   redis:
     hostname: redis001
@@ -75,33 +74,16 @@ services:
     <<: *volumes
     hostname: webapp001
     container_name: webapp001
-    networks:
-      default:
-        ipv4_address: 192.168.2.100
   webapp002:
     <<: *template
     <<: *volumes
     hostname: webapp002
     container_name: webapp002
-    networks:
-      default:
-        ipv4_address: 192.168.2.101
-    deploy:
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: "128M"
-        reservations:
-          cpus: "0.05"
-          memory: "64MB"
   webapp003:
     <<: *template
     <<: *volumes
     hostname: webapp003
     container_name: webapp003
-    networks:
-      default:
-        ipv4_address: 192.168.2.102
 
   webapp004:
     <<: *volumes
