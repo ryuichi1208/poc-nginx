@@ -12,6 +12,9 @@ x-web-template: &template
   tty: true
   environment:
     TZ: "Asia/Tokyo"
+  logging:
+    driver: "json-file"
+  stop_signal: SIGSTOP
 
 x-web-volumes: &volumes
   volumes:

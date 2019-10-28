@@ -41,8 +41,8 @@ update-cert:
 	date ; ${DOCKER} container cp nginx.dev.com:/etc/ssl/certs/server_wild.crt tmp
 	date ; ${DOCKER} container cp tmp/server.crt poc:/usr/local/share/ca-certificates
 	date ; ${DOCKER} container cp tmp/server_wild.crt poc:/usr/local/share/ca-certificates
-	# date ; ${DOCKER_COMPOSE} exec poc update-ca-certificates
-	date ; ${DOCKER_COMPOSE} exec poc update-ca-trust
+	date ; ${DOCKER_COMPOSE} exec poc update-ca-certificates
+	# date ; ${DOCKER_COMPOSE} exec poc update-ca-trust
 
 .PHONY: web01
 web01:
