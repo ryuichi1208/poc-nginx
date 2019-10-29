@@ -57,6 +57,9 @@ services:
         source: ./nginx/html
         target: /usr/share/nginx/html
     tty: true
+    sysctls:
+      net.core.somaxconn: 8192
+      net.ipv4.ip_local_port_range: "10000 60999"
     ports:
       - 8080:80/tcp
       - 8081:443/tcp
@@ -69,7 +72,7 @@ services:
     container_name: redis001
     image: redis:latest
     ports:
-      - "6379:6379"
+      - 6379:6379/tcp
     command: redis-server --appendonly yes
 
   webapp001:

@@ -96,7 +96,7 @@ server {
     location /uri/ {
 	root /usr/share/nginx/html;
 
-        # HEADはキャッシュしない(Cache-Control: no-cache)
+        # HTTPメソッドを指定してクライアントにキャッシュさせない
 	if ($request_method = "HEAD") {
 	    expires -1;
 	}
@@ -120,7 +120,7 @@ server {
 	# リバースプロキシ時にリダイレクトをするk
 	proxy_redirect off;
 
-	# バッファリングするかどうか設定
+	# バッファリングするかどうか設定(offだとキャッシュをしない)
 	proxy_buffering on;
 
 	# バッファのサイズ
@@ -136,6 +136,7 @@ server {
 	proxy_cache_key $host$uri$is_args$args;
 
         # キャッシュを行うステータスコードとその際の有効期限を指定
+	# 404などをキャッシュすると結果のみをキャッシュする
 	proxy_cache_valid 200 201 300 301 302 1d;
 
 	# 下記がヘッダーにある場合はキャッシュを使用しない
