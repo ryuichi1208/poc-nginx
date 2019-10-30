@@ -8,6 +8,8 @@ RUN set -ex \
 	&& apk add --no-cache \
 	apache2-utils \
 	bash \
+	busybox \
+	busybox-extras \
 	curl \
 	ethtool \
 	jq \
