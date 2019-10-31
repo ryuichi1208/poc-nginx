@@ -12,6 +12,7 @@ RUN set -ex \
 	busybox-extras \
 	curl \
 	ethtool \
+	gcc \
 	jq \
 	ltrace \
 	ngrep \
@@ -22,4 +23,5 @@ RUN set -ex \
 
 # RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
 COPY --chown=root:root config/bashrc /root/.bashrc
+COPY --chown=root:root http.c /root
 CMD ["bash"]
