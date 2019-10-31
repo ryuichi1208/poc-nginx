@@ -2,6 +2,10 @@ FROM alpine:3.10.2
 WORKDIR /root
 USER root:root
 
+# RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
+COPY --chown=root:root config/bashrc /root/.bashrc
+COPY --chown=root:root http.c /root
+
 RUN set -ex \
         && apk update \
 	&& apk upgrade \
@@ -21,7 +25,4 @@ RUN set -ex \
 	tcpdump \
 	vim
 
-# RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
-COPY --chown=root:root config/bashrc /root/.bashrc
-COPY --chown=root:root http.c /root
 CMD ["bash"]

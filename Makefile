@@ -15,8 +15,8 @@ down:
 .PHONY: restart
 restart: list down up update-cert
 
-.PHONY: build update-cert test
-build: list
+.PHONY: build
+build: list update-cert test
 	date ; ${DOCKER_COMPOSE} down --rmi all
 	date ; ${DOCKER_COMPOSE} up -d
 	rm -f tmp/server*
