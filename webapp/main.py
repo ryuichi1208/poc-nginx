@@ -86,6 +86,11 @@ def redis_cli():
     get_redis_connnetc_pool("redis001")
 
 
+@app.errorhandler(404)
+def error_handler(error):
+    response = jsonify({"message": "not found", "status_code": "4000"})
+    return response, error.code
+
 
 # @app.errorhandler(HttpException)
 # def handle_http_exception(error):
