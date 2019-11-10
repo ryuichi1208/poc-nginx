@@ -43,10 +43,29 @@ def index():
 def return_http_status(status_code):
     status_list = {
         200: "OK",
+        201: "Created",
+        202: "Accepted",
+        204: "No Content",
+        300: "Multiple Choice",
+        301: "Moved Permanently",
+        302: "Found",
+        304: "Not Modified",
+        307: "Temporary Redirect",
         400: "Bad Request",
+        401: "Unauthorized",
+        403: "Forbidden",
         404: "Not Found",
+        405: "Method Not Allowd",
+        406: "Not Acceptable",
+        408: "Request Timeout",
+        409: "Conflict",
+        410: "Gone",
+        413: "Request Entity Too Large",
+        414: "Request-URI Too Long",
+        415: "Unsupported Media Type",
         429: "Too Many Requests",
         500: "Internal Server Error",
+        503: "Service Unavailable",
     }
 
     try:
