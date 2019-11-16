@@ -1,0 +1,21 @@
+version: 2.1
+
+executors:
+  def-ubuntu:
+    machine:
+      enabled: true
+      image: ubuntu-1604:201903-01
+    shell: "/bin/bash"
+    working_directory: /tmp/app
+
+jobs:
+  dockerfile_lint:
+    executor:
+      name: def-ubuntu
+    steps:
+      - checkout
+
+workflows:
+  poc_workflow:
+    jobs:
+      - dockerfile_lint
