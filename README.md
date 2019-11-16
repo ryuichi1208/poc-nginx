@@ -1,24 +1,38 @@
 # poc-nginx
 docker-compose network for nginx verification.
 
-## 概要
+## Description
 
-Nginxを使ったwebアプリケーションの設定のテストをするためのリポジトリ
+A repository for building a simple reverse proxy verification environment using Nginx.
 
-## 対応機能
+## Features
 
-* SSLオフロード(SSLアクセラレータ)
-* Server Name Indicationテスト
-* リバースプロキシバッファやキャッシュを用いた動作確認
+* Nginx conf syntax test.
+* Reverse proxy using Nginx.
+* Validation for HTTP Request/Response header.
+* SSL offload validation.
+* Survey on various types of cash.
 
-## 必要ソフトウェア
+## Requirement
 
-* make
-* Docker / docker-compose
+* Docker 18.09+
+* docker-compose 1.24.1+
 
-## 始め方
+## Install & Usage
 
+``` bash
+# Install
+$ git clone https://github.com/ryuichi1208/poc-nginx.git
+$ cd poc-nginx
+
+# Usage
+$ make help
 ```
-# コンテナのビルドと環境セットアップ
-$ make build
-```
+
+## License
+
+Apache License
+
+## Author
+
+[ryuichi1208](https://github.com/ryuichi1208)
