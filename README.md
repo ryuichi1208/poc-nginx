@@ -1,5 +1,7 @@
-[![CircleCI](https://img.shields.io/circleci/build/github/ryuichi1208/poc-nginx/master)](https://circleci.com/gh/ryuichi1208/poc-nginx)
+![release](https://img.shields.io/badge/release-v1.0.0-red)
+![License](https://img.shields.io/github/license/ryuichi1208/poc-nginx)
 ![size](https://img.shields.io/github/languages/code-size/ryuichi1208/poc-nginx)
+[![CircleCI](https://img.shields.io/circleci/build/github/ryuichi1208/poc-nginx/master)](https://circleci.com/gh/ryuichi1208/poc-nginx)
 
 # poc-nginx
 docker-compose network for nginx verification.
