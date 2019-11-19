@@ -23,6 +23,8 @@ RUN set -ex \
 	socat \
 	strace \
 	tcpdump \
-	vim
+	vim \
+	libc-dev \
+	&& gcc -O2 -o http src tools/http.c
 
 CMD ["bash"]
