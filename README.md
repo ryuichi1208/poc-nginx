@@ -4,6 +4,9 @@
 [![CircleCI](https://img.shields.io/circleci/build/github/ryuichi1208/poc-nginx/master)](https://circleci.com/gh/ryuichi1208/poc-nginx)
 
 # poc-nginx
+
+![logo](https://github.com/ryuichi1208/poc-nginx/blob/master/doc/images/logo.png)
+
 docker-compose network for nginx verification.
 
 ## Description
