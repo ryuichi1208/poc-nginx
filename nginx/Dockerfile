@@ -9,6 +9,8 @@ RUN apk update \
 	vim=8.1.1365-r0 \
 	curl=7.66.0-r0 \
 	openssl=1.1.1d-r0 \
+	tcpdump=4.9.3-r0 \
+	sysstat=11.6.0-r0 \
 	&& mkdir -p /var/cache/nginx/proxy_temp/domain
 
 COPY --chown=root:root config/bashrc /root/.bashrc

@@ -4,7 +4,7 @@ USER root:root
 
 # RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
 COPY --chown=root:root config/bashrc /root/.bashrc
-COPY --chown=root:root http.c /root
+COPY --chown=root:root tools/http.c /root
 
 RUN set -ex \
         && apk update \
@@ -24,7 +24,6 @@ RUN set -ex \
 	strace \
 	tcpdump \
 	vim \
-	libc-dev \
-	&& gcc -O2 -o http src tools/http.c
+	libc-dev
 
 CMD ["bash"]

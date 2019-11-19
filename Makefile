@@ -1,5 +1,16 @@
+#############################
+# docker settings           #
+#############################
 DOCKER := $(shell which docker)
 DOCKER_COMPOSE := $(shell which docker-compose)
+
+#############################
+# test-tool build settings  #
+#############################
+INCDIR  := -I /usr/local/include -I /usr/include
+CFLAGS  := -Wall -O2 $(INCDIR)
+LDFLAGS := -L /usr/lib -L /usr/local/lib
+CFLAGS  := -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers
 
 .PHONY: list
 list:
@@ -16,7 +27,7 @@ down:
 restart: list down up update-cert
 
 .PHONY: build
-build: list update-cert test
+build: list
 	date ; ${DOCKER_COMPOSE} down --rmi all
 	date ; ${DOCKER_COMPOSE} up -d
 	rm -f tmp/server*

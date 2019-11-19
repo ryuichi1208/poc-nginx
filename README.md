@@ -17,6 +17,7 @@ A repository for building a simple reverse proxy verification environment using 
 * Validation for HTTP Request/Response header.
 * SSL offload validation.
 * Survey on various types of cash.
+* Packet flow at the tcp layer.
 
 ## Requirement
 
@@ -32,6 +33,10 @@ $ cd poc-nginx
 
 # Usage
 $ make help
+
+# packet capture
+# cf. https://troushoo.blog.fc2.com/blog-entry-352.html
+$ docker run –it –v ~/pcap:/pcap --net=host ubuntu
 ```
 
 ## License
