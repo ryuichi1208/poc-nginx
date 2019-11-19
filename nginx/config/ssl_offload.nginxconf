@@ -145,6 +145,12 @@ server {
 	# レスポンスヘッダにキャッシュヒットしたかどうかを含める
         add_header X-Nginx-Cache $upstream_cache_status;
 
+	# セキュリティ関連ヘッダー
+	add_header X-XSS-Protection "1; mode=block";
+	add_header X-Frame-Options DENY;
+	add_header X-Content-Type-Options nosniff;
+	add_header Strict-Transport-Security max-age=15768000;
+
 	# コネクション接続までのタイムアウト
 	proxy_connect_timeout 60s;
 
