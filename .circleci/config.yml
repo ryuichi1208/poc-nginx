@@ -1,5 +1,14 @@
 version: 2.1
 
+commands:
+  install_docker_compose:
+    description: "Install docker-compose"
+    steps:
+      - run: |
+          curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+          chmod +x ~/docker-compose
+          sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
 executors:
   def-ubuntu:
     machine:
@@ -44,6 +53,15 @@ jobs:
       name: def-ubuntu
     steps:
       - checkout
+      - install_docker_compose
+      - run:
+          name: "docker image build"
+          command: |
+            docker-compose up -d
+      - run:
+          name: "docker image list"
+          command: |
+            docker image ls
 
 workflows:
   poc_workflow:
