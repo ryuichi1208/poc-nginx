@@ -4,10 +4,13 @@ commands:
   install_docker_compose:
     description: "Install docker-compose"
     steps:
-      - run: |
-          curl -L https://github.com/docker/compose/releases/download/1.25.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-          chmod +x ~/docker-compose
-          sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
+          name: "Install docker-compose"
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.25.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+            docker-compose version
 
 executors:
   def-ubuntu:
@@ -57,11 +60,13 @@ jobs:
       - run:
           name: "docker image build"
           command: |
-            docker-compose version
-            docker-compose up -d
+            export DOCKER_BUILDKIT=1
+            export COMPOSE_DOCKER_CLI_BUILD=1
+            time docker-compose up -d
       - run:
           name: "docker image list"
           command: |
+            docker-compose ps
             docker image ls
 
 workflows:
