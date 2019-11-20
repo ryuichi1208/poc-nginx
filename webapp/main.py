@@ -3,6 +3,7 @@
 
 import collections
 import datetime
+import grequests
 import os
 import socket
 import sys
@@ -104,6 +105,18 @@ def get_redis_connnetc_pool(serv:str, port:int=6379, db:int=0):
 @app.route("/test/redis", methods=["GET", "POST"])
 def redis_cli():
     get_redis_connnetc_pool("redis001")
+
+
+@app.route("/test/requests", methods=["GET"])
+def grequests_exec():
+    url_list = [
+        "https://google.com",
+        "https://yahoo.co.jp"
+        "https://qiita.com"
+    ]
+
+    ret = (grequests.get(u) for u in url_list)
+    return "200"
 
 
 @app.errorhandler(404)

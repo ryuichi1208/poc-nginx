@@ -9,3 +9,4 @@ Werkzeug==0.16.0
 uWSGI==2.0.18
 redis==3.3.11
 numpy==1.17.3
+grequests==0.4.0
