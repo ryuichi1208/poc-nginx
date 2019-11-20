@@ -57,6 +57,7 @@ jobs:
       - run:
           name: "docker image build"
           command: |
+            docker-compose version
             docker-compose up -d
       - run:
           name: "docker image list"
