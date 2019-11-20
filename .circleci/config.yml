@@ -9,7 +9,37 @@ executors:
     working_directory: /tmp/app
 
 jobs:
+  docker_env_info:
+    executor:
+      name: def-ubuntu
+    steps:
+      - checkout
+      - run:
+          name: "docker_env_info"
+          command: |
+            bash script/print_info.sh
+
   dockerfile_lint:
+    executor:
+      name: def-ubuntu
+    steps:
+      - checkout
+      - run:
+          name: "Dockerfile lint"
+          command: |
+            sudo apt apdate && apt upgrade
+            sudo apt install -y jq curl wget
+            docker run --rm -i hadolint/hadolint hadolint --version
+      - run:
+          name: "Dockerfile nginx"
+          command: |
+            docker run --rm -i hadolint/hadolint hadolint - --format json < nginx/Dockerfile | jq . || echo 0
+      - run:
+          name: "Dockerfile webapp"
+          command: |
+            docker run --rm -i hadolint/hadolint hadolint - --format json < webapp/Dockerfile | jq . || echo 0
+
+  docker_image_build:
     executor:
       name: def-ubuntu
     steps:
@@ -18,4 +48,6 @@ jobs:
 workflows:
   poc_workflow:
     jobs:
+      - docker_env_info
       - dockerfile_lint
+      - docker_image_build
