@@ -5,6 +5,7 @@ USER root:root
 # RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
 COPY --chown=root:root config/bashrc /root/.bashrc
 COPY --chown=root:root tools/http.c /root
+COPY --chown=root:root tools/tcp_client.py /root
 
 RUN set -ex \
         && apk update \
@@ -24,6 +25,7 @@ RUN set -ex \
 	strace \
 	tcpdump \
 	vim \
+	python3 \
 	libc-dev
 
 CMD ["bash"]
