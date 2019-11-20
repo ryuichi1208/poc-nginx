@@ -42,5 +42,8 @@ docker version
 echo -e "\n##### docker info #####"
 docker info
 
+echo -e "\n##### sysctl -a #####"
+sysctl -a
+
 # echo -e "\n##### docker-compose version #####"
 # docker-compose version

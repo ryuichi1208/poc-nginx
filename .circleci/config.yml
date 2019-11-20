@@ -49,5 +49,10 @@ workflows:
   poc_workflow:
     jobs:
       - docker_env_info
-      - dockerfile_lint
-      - docker_image_build
+      - dockerfile_lint:
+          requires:
+            - docker_env_info
+      - docker_image_build:
+          requires:
+            - docker_env_info
+            - dockerfile_lint
