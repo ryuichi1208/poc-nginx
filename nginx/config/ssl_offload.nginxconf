@@ -64,6 +64,8 @@ server {
     ssl_certificate /etc/ssl/certs/server.crt;
     # 秘密鍵ファイルのパス
     ssl_certificate_key /etc/ssl/certs/server.key;
+    # SSLのセッションキャッシュ
+    ssl_session_cache   shared:SSL:10m;
     # SSLセッションキャッシュのタイムアウト
     ssl_session_timeout  5m;
     # SSL/TLSプロトコルの指定
@@ -150,6 +152,7 @@ server {
 	add_header X-Frame-Options DENY;
 	add_header X-Content-Type-Options nosniff;
 	add_header Strict-Transport-Security max-age=15768000;
+	add_header Referrer-Policy no-referrer always;
 
 	# コネクション接続までのタイムアウト
 	proxy_connect_timeout 60s;
