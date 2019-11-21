@@ -179,6 +179,9 @@ server {
 	# クライントとの接続でのタイムアウト
 	keepalive_timeout 60s;
 
+        # 持続的な接続上で許可されるリクエストの数を設定
+	keepalive_requests 100;
+
 	###### proxy_set_header #####
         proxy_set_header Host $http_host;
 	proxy_set_header Uri $uri;

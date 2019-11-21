@@ -63,6 +63,10 @@ web01:
 web02:
 	date ; ${DOCKER_COMPOSE} exec webapp002 bash
 
+.PHONY: web03
+web02:
+	date ; ${DOCKER_COMPOSE} exec webapp002 bash
+
 .PHONY: test
 test:
 	date ; ${DOCKER_COMPOSE} exec poc curl --tlsv1.2 -vskL poc-proxy.example.com/uri/
