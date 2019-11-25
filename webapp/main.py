@@ -118,6 +118,25 @@ def grequests_exec():
     ret = (grequests.get(u) for u in url_list)
     return "200"
 
+"""
+parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
+                description='BHP Net Tool',
+                epilog='''\
+Examples:
+    bhnet.py -t 192.168.0.1 -p 5555 -l -c
+    bhnet.py -t 192.168.0.1 -p 5555 -l -u c:\\target.exe
+    bhnet.py -t 192.168.0.1 -p 5555 -l -e 'cat /etc/passwd'
+    echo 'ABCDEFGHI' | ./bhnet.py -t 192.168.11.12 -p 135''')
+
+parser.add_argument('-l', '--listen', help='listen on [host]:[port] for incoming connections', action='store_true')
+parser.add_argument('-e', '--execute', default=None, help='execute the given file upon receiving a connection')
+parser.add_argument('-c', '--command', help='initialize a command shell', action='store_true')
+parser.add_argument('-u', '--upload', help='upon receiving connection upload a file and write to [destination]')
+parser.add_argument('-t', '--target', default=None)
+parser.add_argument('-p', '--port', default=None, type=int)
+args = parser.parse_args()
+"""
+
 
 @app.errorhandler(404)
 def error_handler(error):

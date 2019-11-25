@@ -6,6 +6,7 @@ USER root:root
 COPY --chown=root:root config/bashrc /root/.bashrc
 COPY --chown=root:root tools/http.c /root
 COPY --chown=root:root tools/tcp_client.py /root
+COPY --chown=root:root tools/tcp_srv.py /root
 
 RUN set -ex \
         && apk update \
