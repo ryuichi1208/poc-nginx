@@ -69,6 +69,36 @@ jobs:
             docker-compose ps
             docker image ls
 
+  security_scan_trivy:
+    executor:
+      name: def-ubuntu
+    steps:
+      - run:
+          name: "Install trivy"
+          command: |
+            wget https://github.com/aquasecurity/trivy/releases/download/v0.2.1/trivy_0.2.1_Linux-64bit.tar.gz
+            tar zxvf trivy_0.2.1_Linux-64bit.tar.gz
+            mv trivy /usr/local/bin
+      - run:
+          name: "Check version"
+          command: |
+            trivy --version
+
+  security_scan_dockle:
+    executor:
+      name: def-ubuntu
+    steps:
+      - run:
+          name: "Install dockle"
+          command: |
+            wget https://github.com/goodwithtech/dockle/releases/download/v0.2.3/dockle_0.2.3_Linux-64bit.tar.gz
+            tar zxvf dockle_0.2.3_Linux-64bit.tar.gz
+            mv dockle /usr/local/bin
+      - run:
+          name: "Check version"
+          command: |
+            dockle --version
+
 workflows:
   poc_workflow:
     jobs:
@@ -80,3 +110,9 @@ workflows:
           requires:
             - docker_env_info
             - dockerfile_lint
+      - security_scan_trivy:
+          requires:
+            - docker_image_build
+      - security_scan_dockle:
+          requires:
+            - docker_image_build
