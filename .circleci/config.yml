@@ -78,7 +78,7 @@ jobs:
           command: |
             wget https://github.com/aquasecurity/trivy/releases/download/v0.2.1/trivy_0.2.1_Linux-64bit.tar.gz
             tar zxvf trivy_0.2.1_Linux-64bit.tar.gz
-            mv trivy /usr/local/bin
+            sudo mv trivy /usr/local/bin
       - run:
           name: "Check version"
           command: |
@@ -93,7 +93,7 @@ jobs:
           command: |
             wget https://github.com/goodwithtech/dockle/releases/download/v0.2.3/dockle_0.2.3_Linux-64bit.tar.gz
             tar zxvf dockle_0.2.3_Linux-64bit.tar.gz
-            mv dockle /usr/local/bin
+            sudo mv dockle /usr/local/bin
       - run:
           name: "Check version"
           command: |
