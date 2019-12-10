@@ -32,6 +32,9 @@ x-web-volumes: &volumes
     - type: bind
       source: ./webapp/templates
       target: /var/www/templates
+    - type: bind
+      source: ./webapp/static
+      target: /var/www/static
 
 services:
   poc:
@@ -66,7 +69,7 @@ services:
         target: /usr/share/nginx/html
     tty: true
     sysctls:
-      net.core.somaxconn: 8192
+      net.core.somaxconn: 4
       net.ipv4.ip_local_port_range: "10000 60999"
     ports:
       - 8080:80/tcp
