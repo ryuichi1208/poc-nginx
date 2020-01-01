@@ -36,13 +36,13 @@ upstream backend {
 
     # 300s以内に3回リクエストが失敗したら300s以下のサーバへリクエストしない
     server webapp001:5000 weight=5 max_fails=3 fail_timeout=60s;
-    server webapp002:5000 weight=5 max_fails=3 fail_timeout=60s;
+    # server webapp002:5000 weight=5 max_fails=3 fail_timeout=60s;
 
     # 他サーバが死んだらbackupへリクエスト
-    server webapp003:5000 backup;
+    # server webapp003:5000 backup;
 
     # コールドスタンバイ、downを指定していう限りはリクエストは飛ばない
-    server webapp004 down;
+    # server webapp004 down;
 }
 
 server {
