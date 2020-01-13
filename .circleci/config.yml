@@ -35,6 +35,7 @@ jobs:
     executor:
       name: def-ubuntu
     steps:
+      - checkout
       - run:
           name: "docker image check version"
           command: |
