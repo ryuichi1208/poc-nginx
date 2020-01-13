@@ -99,6 +99,12 @@ jobs:
           name: "Check version"
           command: |
             trivy --version
+      - restore_cache:
+          key: vulnerability-db
+      - save_cache:
+          key: vulnerability-db
+          paths:
+            - $HOME/.cache/trivy
 
   security_scan_dockle:
     executor:
