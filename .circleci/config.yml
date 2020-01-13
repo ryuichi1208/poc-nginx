@@ -38,7 +38,13 @@ jobs:
       - run:
           name: "docker image check version"
           command: |
-            find . -name Dockerfile* | xargs cat | grep FROM | awk '{print $2}' | cut -d : -f 1 | sort | uniq | xargs -L1 -Iimg dockertags --limit 3 img
+            find . -name Dockerfile* | xargs cat \
+             | grep FROM \
+             | awk '{print $2}' \
+             | cut -d : -f 1 \
+             | sort \
+             | uniq \
+             | xargs -L1 -Iimg docker run --rm goodwithtech/dockertags --limit 3 img
 
   dockerfile_lint:
     executor:
@@ -69,7 +75,7 @@ jobs:
       - run:
           name: "docker image build"
           command: |
-            # export DOCKER_BUILDKIT=1
+            export DOCKER_BUILDKIT=1
             export COMPOSE_DOCKER_CLI_BUILD=1
             time docker-compose up -d
       - run:
