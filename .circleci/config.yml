@@ -38,14 +38,7 @@ jobs:
       - run:
           name: "docker image check version"
           command: |
-            find . -name Dockerfile* \
-             | xargs cat \
-             | grep FROM \
-             | awk '{print $2}' \
-             | cut -d : -f 1 \
-             | sort \
-             | uniq \
-             | xargs -L1 -Iimg dockertags --limit 3 img
+            find . -name Dockerfile* | xargs cat | grep FROM | awk '{print $2}' | cut -d : -f 1 | sort | uniq | xargs -L1 -Iimg dockertags --limit 3 img
 
   dockerfile_lint:
     executor:
