@@ -31,6 +31,22 @@ jobs:
           command: |
             bash script/print_info.sh
 
+  check_new_image_tag:
+    executor:
+      name: def-ubuntu
+    steps:
+      - run:
+          name: "docker image check version"
+          command: |
+            find . -name Dockerfile* \
+             | xargs cat \
+             | grep FROM \
+             | awk '{print $2}' \
+             | cut -d : -f 1 \
+             | sort \
+             | uniq \
+             | xargs -L1 -Iimg dockertags --limit 3 img
+
   dockerfile_lint:
     executor:
       name: def-ubuntu
@@ -103,6 +119,7 @@ workflows:
   poc_workflow:
     jobs:
       - docker_env_info
+      - check_new_image_tag
       - dockerfile_lint:
           requires:
             - docker_env_info
