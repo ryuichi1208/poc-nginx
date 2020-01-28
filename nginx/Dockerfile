@@ -1,4 +1,4 @@
-FROM nginx:1.17.4-alpine
+FROM nginx:1.17.6-alpine
 WORKDIR /root
 USER root:root
 ENV DOCKER_GEN_VERSION 0.7.4
@@ -8,7 +8,7 @@ RUN apk update \
 	bash=5.0.0-r0 \
 	vim=8.1.1365-r0 \
 	curl=7.66.0-r0 \
-	openssl=1.1.1d-r0 \
+	openssl=1.1.1d-r2 \
 	tcpdump=4.9.3-r0 \
 	sysstat=11.6.0-r0 \
 	&& mkdir -p /var/cache/nginx/proxy_temp/domain

@@ -1,6 +1,7 @@
 #############################
 # docker settings           #
 #############################
+POC_VERSION := 1.0.0
 DOCKER := $(shell which docker)
 DOCKER_COMPOSE := $(shell which docker-compose)
 
@@ -11,6 +12,11 @@ INCDIR  := -I /usr/local/include -I /usr/include
 CFLAGS  := -Wall -O2 $(INCDIR)
 LDFLAGS := -L /usr/lib -L /usr/local/lib
 CFLAGS  := -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers
+
+.PHONY: version
+version:
+	@echo ${POC_VERSION}
+	@uname -a && id
 
 .PHONY: list
 list:
@@ -64,7 +70,7 @@ web02:
 	date ; ${DOCKER_COMPOSE} exec webapp002 bash
 
 .PHONY: web03
-web02:
+web03:
 	date ; ${DOCKER_COMPOSE} exec webapp002 bash
 
 .PHONY: test

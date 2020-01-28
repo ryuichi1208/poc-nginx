@@ -31,6 +31,22 @@ jobs:
           command: |
             bash script/print_info.sh
 
+  check_new_image_tag:
+    executor:
+      name: def-ubuntu
+    steps:
+      - checkout
+      - run:
+          name: "docker image check version"
+          command: |
+            find . -name Dockerfile* | xargs cat \
+             | grep FROM \
+             | awk '{print $2}' \
+             | cut -d : -f 1 \
+             | sort \
+             | uniq \
+             | xargs -L1 -Iimg docker run --rm goodwithtech/dockertags --limit 3 img
+
   dockerfile_lint:
     executor:
       name: def-ubuntu
@@ -83,6 +99,12 @@ jobs:
           name: "Check version"
           command: |
             trivy --version
+      - restore_cache:
+          key: vulnerability-db
+      - save_cache:
+          key: vulnerability-db
+          paths:
+            - $HOME/.cache/trivy
 
   security_scan_dockle:
     executor:
@@ -103,6 +125,7 @@ workflows:
   poc_workflow:
     jobs:
       - docker_env_info
+      - check_new_image_tag
       - dockerfile_lint:
           requires:
             - docker_env_info
