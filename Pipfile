@@ -6,16 +6,13 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-<<<<<<< HEAD
 flask = "*"
 requests = "*"
 
 [requires]
 python_version = "3.7"
-=======
 beautifulsoup4 = "*"
 requests = "*"
 
 [requires]
 python_version = "3.8"
->>>>>>> 8f993a3451b1a2b47eb0bb1bc2bf47effa9b4e16
