@@ -1,0 +1,23 @@
+@startuml
+
+actor iPhone
+participant "LB" as A
+participant "httpd" as B
+participant "tomcat" as C
+
+iPhone -> A: http / 80
+A -> B: http / 80
+B --> A: https / 443
+A --> iPhone: https / 443
+iPhone -> A: https / 443
+A -> B: http / 8443
+B --> A: https /m 443
+A --> iPhone: https /m 443
+iPhone -> A: https /m 443
+A -> B: http /m 8443
+B -> C: http /m 8009
+C --> B: コンテンツ
+B --> A: コンテンツ
+A --> iPhone: コンテンツ
+
+@enduml

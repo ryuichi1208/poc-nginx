@@ -70,7 +70,7 @@ services:
     tty: true
     sysctls:
       net.core.somaxconn: 4
-      net.ipv4.ip_local_port_range: "10000 60999"
+      net.ipv4.ip_local_port_range: "65533 65535"
     ports:
       - 8080:80/tcp
       - 8081:443/tcp
