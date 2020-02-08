@@ -51,7 +51,7 @@ jobs:
     executor:
       name: def-ubuntu
     steps:
-      - check
+      - checkout
       - run: |
           pwd && make shellcheck
 
