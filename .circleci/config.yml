@@ -134,6 +134,7 @@ workflows:
     jobs:
       - docker_env_info
       - check_new_image_tag
+      - shellcheck
       - dockerfile_lint:
           requires:
             - docker_env_info
