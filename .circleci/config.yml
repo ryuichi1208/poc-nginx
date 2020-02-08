@@ -47,6 +47,14 @@ jobs:
              | uniq \
              | xargs -L1 -Iimg docker run --rm goodwithtech/dockertags --limit 3 img
 
+  shellcheck:
+    executor:
+      name: def-ubuntu
+    steps:
+      - check
+      - run: |
+          pwd && make shellcheck
+
   dockerfile_lint:
     executor:
       name: def-ubuntu
