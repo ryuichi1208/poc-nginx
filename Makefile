@@ -12,6 +12,8 @@ INCDIR  := -I /usr/local/include -I /usr/include
 CFLAGS  := -Wall -O2 $(INCDIR)
 LDFLAGS := -L /usr/lib -L /usr/local/lib
 CFLAGS  := -g -MMD -MP -Wall -Wextra -Winit-self -Wno-missing-field-initializers
+PWD     := $(shell pwd)
+SH_FILE := $(shell find . -name *.sh)
 
 .PHONY: version
 version:
@@ -76,3 +78,7 @@ web03:
 .PHONY: test
 test:
 	date ; ${DOCKER_COMPOSE} exec poc curl --tlsv1.2 -vskL poc-proxy.example.com/uri/
+
+.PHONY: shellcheck
+shellcheck:
+	cd script && docker container run -v ${PWD}/:/mnt koalaman/shellcheck ${SH_FILE} || echo 0
