@@ -23,7 +23,13 @@ map $http_user_agent $device {
 # プロキシのキャッシュ用のパス
 # levels : キャッシュを保存するディレクトリ階層とディレクトリ名の文字数
 # keys_zone : proxy_cacheディレクティブで指定するキー
-proxy_cache_path /var/cache/nginx/proxy_temp/domain levels=1:2 keys_zone=cache_domain:15m max_size=100m inactive=10s;
+proxy_cache_path /var/cache/nginx/proxy_temp/domain
+                 levels=1:2
+                 keys_zone=cache_domain:15m
+                 max_size=100m
+                 use_temp_path=on
+                 inactive=10s;
+
 
 # Dos攻撃対策 DDosには非対応。。
 # limit_req_zone [キー名] [zone名] [リクエスト数]
