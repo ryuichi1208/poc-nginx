@@ -148,11 +148,11 @@ server {
 	proxy_cache_valid 200 201 300 301 302 1d;
 
 	# 下記がヘッダーにある場合はキャッシュを使用しない
-	proxy_ignore_headers X-Accel-Redirect X-Accel-Expires Cache-Control Expires Vary Set-Cookie;
+	# proxy_ignore_headers X-Accel-Redirect X-Accel-Expires Cache-Control Expires Vary Set-Cookie;
+	proxy_ignore_headers X-Accel-Redirect X-Accel-Expires Cache-Control Expires Vary;
 
 	# レスポンスヘッダにキャッシュヒットしたかどうかを含める
         add_header X-Nginx-Cache $upstream_cache_status;
-
 	# セキュリティ関連ヘッダー
 	add_header X-XSS-Protection "1; mode=block";
 	add_header X-Frame-Options DENY;

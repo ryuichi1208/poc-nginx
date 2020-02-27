@@ -17,6 +17,7 @@ import redis
 
 from flask import Flask, request, make_response, jsonify, render_template
 from multiprocessing import Pool, Process, cpu_count
+
 # from werkzeug.exception import HTTPException
 
 app = Flask(__name__)
@@ -26,18 +27,23 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def index():
-    return jsonify(
-        {
-            "headers": dict(request.headers),
-            "host": {
-                "name": os.uname()[1],
-                "ip": socket.gethostbyname(socket.gethostname()),
-                "ppid": os.getppid(),
-                "pid": os.getpid(),
-                "date": str(datetime.datetime.today())[:-7]
-            },
-        }
+    resp = make_response(
+        jsonify(
+            {
+                "headers": dict(request.headers),
+                "host": {
+                    "name": os.uname()[1],
+                    "ip": socket.gethostbyname(socket.gethostname()),
+                    "ppid": os.getppid(),
+                    "pid": os.getpid(),
+                    "date": str(datetime.datetime.today())[:-7],
+                },
+            }
+        )
     )
+
+    resp.set_cookie("test_cookie", "test")
+    return resp
 
 
 @app.route("/test/status/<int:status_code>", methods=["GET"])
@@ -97,7 +103,8 @@ def do_stress_test():
     L = list(itertools.permutations([i ** 128 for i in range(128)]))
     return "200"
 
-def get_redis_connnetc_pool(serv:str, port:int=6379, db:int=0):
+
+def get_redis_connnetc_pool(serv: str, port: int = 6379, db: int = 0):
     pool = redis.ConnectionPool(host=serv, port=port, db=db)
     return redis.StricRedis(connection_pool=pool)
 
@@ -109,14 +116,11 @@ def redis_cli():
 
 @app.route("/test/requests", methods=["GET"])
 def grequests_exec():
-    url_list = [
-        "https://google.com",
-        "https://yahoo.co.jp"
-        "https://qiita.com"
-    ]
+    url_list = ["https://google.com", "https://yahoo.co.jp" "https://qiita.com"]
 
     ret = (grequests.get(u) for u in url_list)
     return "200"
+
 
 """
 parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
