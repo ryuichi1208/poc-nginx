@@ -46,6 +46,7 @@ jobs:
              | sort \
              | uniq \
              | xargs -L1 -Iimg docker run --rm goodwithtech/dockertags --limit 3 img
+             || echo $?
 
   shellcheck:
     executor:
