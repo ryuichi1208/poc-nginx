@@ -78,6 +78,7 @@ server {
     ssl_protocols TLSv1.2 TLSv1.3;
     # サーバ側指定の暗号化プロトコルの優先設定
     ssl_ciphers  HIGH:!aNULL:!MD5;
+    # サーバ指定の暗号化スイートが優先されるように設定
     ssl_prefer_server_ciphers   on;
 
     location / {
