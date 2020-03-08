@@ -1,3 +1,4 @@
 webapp/.mypy_cache
 tmp/
 .vim
+results/*/*

@@ -33,7 +33,7 @@ proxy_cache_path /var/cache/nginx/proxy_temp/domain
 
 # Dos攻撃対策 DDosには非対応。。
 # limit_req_zone [キー名] [zone名] [リクエスト数]
-limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+limit_req_zone $binary_remote_addr zone=one:10m rate=100r/s;
 
 upstream backend {
     # 接続先選定のアルゴリズム

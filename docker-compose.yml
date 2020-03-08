@@ -86,6 +86,16 @@ services:
       - 6379:6379/tcp
     command: redis-server --appendonly yes
 
+  gatling:
+    image: denvazh/gatling:3.2.1
+    container_name: gatling
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./gatring/conf:/opt/gatling/conf
+      - ./gatring/user-files:/opt/gatling/user-files
+      - ./results:/opt/gatling/results
+
   webapp001:
     <<: *template
     <<: *volumes
