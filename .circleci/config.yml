@@ -21,6 +21,20 @@ executors:
     working_directory: /tmp/app
 
 jobs:
+  markdown-link-check:
+    executor:
+      name: def-ubuntu
+    steps:
+      - checkout
+      - run:
+          name: "markdown-link-check"
+          command: |
+            git clone https://github.com/tcort/markdown-link-check.git
+            cd markdown-link-check && ls -al
+            docker build --tag markdown-link-check .
+            cd ..
+            docker container run --rm -i markdown-link-check < README.md
+
   docker_env_info:
     executor:
       name: def-ubuntu
