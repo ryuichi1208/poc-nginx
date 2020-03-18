@@ -152,6 +152,9 @@ workflows:
       - dockerfile_lint:
           requires:
             - docker_env_info
+            - markdown-link-check
+            - check_new_image_tag
+            - shellcheck
       - docker_image_build:
           requires:
             - docker_env_info
