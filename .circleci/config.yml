@@ -146,6 +146,7 @@ jobs:
 workflows:
   poc_workflow:
     jobs:
+      - markdown-link-check
       - docker_env_info
       - check_new_image_tag
       - shellcheck
