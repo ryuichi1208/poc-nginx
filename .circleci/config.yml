@@ -22,18 +22,16 @@ executors:
 
 jobs:
   markdown-link-check:
-    executor:
-      name: def-ubuntu
+    docker: 
+      - image: pouchcontainer/pouchlinter:v0.1.2
+    working_directory: ~/sentinel
     steps:
       - checkout
       - run:
-          name: "markdown-link-check"
+          name: use markdownlint v0.5.0 to lint markdown file (https://github.com/markdownlint/markdownlint)
           command: |
-            git clone https://github.com/tcort/markdown-link-check.git
-            cd markdown-link-check && ls -al
-            docker build --tag markdown-link-check .
-            cd ..
-            docker container run --rm -i markdown-link-check < README.md
+            find  ./ -name  "*.md" 
+             | xargs mdl -r ~MD010,~MD013,~MD024,~MD029,~MD033,~MD036
 
   docker_env_info:
     executor:
