@@ -30,6 +30,7 @@ jobs:
       - run:
           name: use markdownlint v0.5.0 to lint markdown file (https://github.com/markdownlint/markdownlint)
           command: |
+            ls -al
             find  ./ -name  "*.md" \
              | xargs mdl -r ~MD010,~MD013,~MD024,~MD029,~MD033,~MD036
 
