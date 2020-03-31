@@ -21,6 +21,19 @@ executors:
     working_directory: /tmp/app
 
 jobs:
+  markdown-link-check:
+    docker: 
+      - image: pouchcontainer/pouchlinter:v0.1.2
+    working_directory: ~/sentinel
+    steps:
+      - checkout
+      - run:
+          name: use markdownlint v0.5.0 to lint markdown file (https://github.com/markdownlint/markdownlint)
+          command: |
+            ls -al
+            find  ./ -name  "*.md" \
+             | xargs mdl -r ~MD010,~MD013,~MD024,~MD029,~MD033,~MD036
+
   docker_env_info:
     executor:
       name: def-ubuntu
@@ -133,12 +146,16 @@ jobs:
 workflows:
   poc_workflow:
     jobs:
+      - markdown-link-check
       - docker_env_info
       - check_new_image_tag
       - shellcheck
       - dockerfile_lint:
           requires:
             - docker_env_info
+            - markdown-link-check
+            - check_new_image_tag
+            - shellcheck
       - docker_image_build:
           requires:
             - docker_env_info
