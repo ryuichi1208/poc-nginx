@@ -86,6 +86,7 @@ jobs:
           command: |
             export DOCKER_BUILDKIT=1
             export COMPOSE_DOCKER_CLI_BUILD=1
+            ls -la
             time docker-compose up -d
       - run:
           name: "docker image list"
