@@ -25,6 +25,25 @@ app = Flask(__name__)
 # app.config['UPLOAD_FOLDER'] = ""
 
 
+class RingBuffer:
+    def __init__(self,size):
+        self.buffer = [None for i in xrange(0,size)]
+        self.start = 0
+        self.end = 0
+
+    def add(self,val):
+        self.buffer[self.end] = val
+        self.end = (self.end + 1) % len(self.buffer)
+
+    def get(self):
+        val = self.buffer[self.start]
+        self.start =(self.start + 1) % len(self.buffer)
+        return val
+
+    def __len__(self):
+        return self.end - self.start
+    
+    
 @app.route("/", methods=["GET"])
 def index():
     resp = make_response(
